@@ -5,7 +5,6 @@
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/_is-closed/form_is-closed.css);
 @import url(../blocks/form/__close/form__close.css);
-@import url(../blocks/form/__container/form__container.css);
 @import url(../blocks/form/__main-container/form__main-container.css);
 @import url(../blocks/form/__heading/form__heading.css);
 @import url(../blocks/form/__input-container/form__input-container.css);
