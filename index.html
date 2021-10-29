@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Социальная сеть для путешественников по России"
+    />
+    <meta name="keywords" content="Место, Россия, Mesto, Russia" />
+    <meta name="author" content="Максим Лебедев" />
+    <title>Mesto Russia</title>
+    <link rel="stylesheet" type="text/css" href="./pages/index.css" />
+  </head>
+  <body class="page">
+    <div class="page__container">
+      <section class="form">
+        <form class="form__main-container">
+            <button class="form__close" type="button"></button>
+            <p class="form__heading">Редактировать профиль</p>
+            <fieldset class="form__input-container">
+              <label for="name"></label>
+              <input
+                class="form__item form__item_el_name"
+                name="name"
+                id="name"
+                type="text"
+                value="Жак-Ив Кусто"
+                placeholder="Введите имя"
+              />
+              <label for="bio"></label>
+              <input
+                class="form__item form__item_el_bio"
+                name="bio"
+                id="bio"
+                type="text"
+                value="Исследователь океана"
+                placeholder="Расскажите о себе"
+              />
+            </fieldset>
+            <button class="form__submit" type="submit">Сохранить</button>
+        </form>
+      </section>
+      <header class="header">
+        <img class="header__logo" alt="логотип" src="./images/logo.svg" />
+      </header>
+      <main class="content">
+        <section class="profile">
+          <div class="profile__container">
+            <img
+              src="./images/image.jpg"
+              alt="Аватар"
+              class="profile__avatar"
+            />
+            <div class="profile__info">
+              <h2 class="profile__name">Жак-Ив Кусто</h2>
+              <button class="profile__edit-button" type="button"></button>
+              <p class="profile__bio">Исследователь океана</p>
+            </div>
+          </div>
+          <button class="profile__add-button" type="button"></button>
+        </section>
+        <section class="elements">
+          <article class="card">
+            <img
+              class="card__image"
+              src="./images/kirill-pershin-1088404-unsplash.jpg"
+              alt="Изображение"
+            />
+            <div class="card__description">
+              <h3 class="card__text">Карачаевск</h3>
+              <div class="card__like"></div>
+            </div>
+          </article>
+          <article class="card">
+            <img
+              class="card__image"
+              src="./images/kirill-pershin-1404681-unsplash-1.jpg"
+              alt="Изображение"
+            />
+            <div class="card__description">
+              <h3 class="card__text">Гора Эльбрус</h3>
+              <div class="card__like card__like_active"></div>
+            </div>
+          </article>
+          <article class="card">
+            <img
+              class="card__image"
+              src="./images/kirill-pershin-1556355-unsplash.jpg"
+              alt="Изображение"
+            />
+            <div class="card__description">
+              <h3 class="card__text">Домбай</h3>
+              <div class="card__like"></div>
+            </div>
+          </article>
+          <article class="card">
+            <img
+              class="card__image"
+              src="./images/kirill-pershin-1404681-unsplash-1.jpg"
+              alt="Изображение"
+            />
+            <div class="card__description">
+              <h3 class="card__text">Гора Эльбрус</h3>
+              <div class="card__like card__like_active"></div>
+            </div>
+          </article>
+          <article class="card">
+            <img
+              class="card__image"
+              src="./images/kirill-pershin-1556355-unsplash.jpg"
+              alt="Изображение"
+            />
+            <div class="card__description">
+              <h3 class="card__text">Домбай</h3>
+              <div class="card__like"></div>
+            </div>
+          </article>
+          <article class="card">
+            <img
+              class="card__image"
+              src="./images/kirill-pershin-1088404-unsplash.jpg"
+              alt="Изображение"
+            />
+            <div class="card__description">
+              <h3 class="card__text">Карачаево-Ч...</h3>
+              <div class="card__like"></div>
+            </div>
+          </article>
+        </section>
+      </main>
+      <footer class="footer">
+        <p class="footer__copyright">&COPY; 2020 Mesto Russia</p>
+      </footer>
+    </div>
+  </body>
+</html>
