@@ -8,6 +8,7 @@
   transition: 0.2s;
   border: none;
   cursor: pointer;
+  align-self: center;
   grid-area: edit;
 }
 

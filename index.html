@@ -15,23 +15,22 @@
   </head>
   <body class="page">
     <div class="page__container">
-      <section class="form form_is-closed">
-        <form class="form__main-container">
-            <button class="form__close" type="button"></button>
-            <p class="form__heading">Редактировать профиль</p>
-            <fieldset class="form__input-container">
-              <label for="name"></label>
+      <div class="pop-up pop-up_is-closed">
+        <div class="pop-up__container">
+          <button class="pop-up__close" type="button"></button>
+          <form class="pop-up__main-container" name="edit-profile-form">
+            <h2 class="pop-up__heading">Редактировать профиль</h2>
+            <fieldset class="pop-up__input-container">
               <input
-                class="form__item form__item_el_name"
+                class="pop-up__item pop-up__item_el_name"
                 name="name"
                 id="name"
                 type="text"
                 value="Жак-Ив Кусто"
                 placeholder="Введите имя"
               />
-              <label for="bio"></label>
               <input
-                class="form__item form__item_el_bio"
+                class="pop-up__item pop-up__item_el_bio"
                 name="bio"
                 id="bio"
                 type="text"
@@ -39,9 +38,10 @@
                 placeholder="Расскажите о себе"
               />
             </fieldset>
-            <button class="form__submit" type="submit">Сохранить</button>
-        </form>
-      </section>
+            <button class="pop-up__submit" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
       <header class="header">
         <img class="header__logo" alt="логотип" src="./images/logo.svg" />
       </header>
@@ -54,78 +54,78 @@
               class="profile__avatar"
             />
             <div class="profile__info">
-              <h2 class="profile__name">Жак-Ив Кусто</h2>
-              <button class="profile__edit-button" type="button"></button>
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button class="profile__edit-button" type="button" aria-label="Изменить данные"></button>
               <p class="profile__bio">Исследователь океана</p>
             </div>
           </div>
-          <button class="profile__add-button" type="button"></button>
+          <button class="profile__add-button" type="button" aria-label="Добавить изображение"></button>
         </section>
         <section class="elements">
           <article class="card">
             <img
               class="card__image"
               src="./images/kirill-pershin-1088404-unsplash.jpg"
-              alt="Изображение"
+              alt="Карачаевск"
             />
             <div class="card__description">
               <h3 class="card__text">Карачаевск</h3>
-              <div class="card__like"></div>
+              <button class="card__like" type="button"></button>
             </div>
           </article>
           <article class="card">
             <img
               class="card__image"
               src="./images/kirill-pershin-1404681-unsplash-1.jpg"
-              alt="Изображение"
+              alt="Гора Эльбрус"
             />
             <div class="card__description">
               <h3 class="card__text">Гора Эльбрус</h3>
-              <div class="card__like card__like_active"></div>
+              <button class="card__like card__like_active"></button>
             </div>
           </article>
           <article class="card">
             <img
               class="card__image"
               src="./images/kirill-pershin-1556355-unsplash.jpg"
-              alt="Изображение"
+              alt="Домбай"
             />
             <div class="card__description">
               <h3 class="card__text">Домбай</h3>
-              <div class="card__like"></div>
+              <button class="card__like" type="button"></button>
             </div>
           </article>
           <article class="card">
             <img
               class="card__image"
               src="./images/kirill-pershin-1404681-unsplash-1.jpg"
-              alt="Изображение"
+              alt="Гора Эльбрус"
             />
             <div class="card__description">
               <h3 class="card__text">Гора Эльбрус</h3>
-              <div class="card__like card__like_active"></div>
+              <button class="card__like card__like_active"></button>
             </div>
           </article>
           <article class="card">
             <img
               class="card__image"
               src="./images/kirill-pershin-1556355-unsplash.jpg"
-              alt="Изображение"
+              alt="Домбай"
             />
             <div class="card__description">
               <h3 class="card__text">Домбай</h3>
-              <div class="card__like"></div>
+              <button class="card__like" type="button"></button>
             </div>
           </article>
           <article class="card">
             <img
               class="card__image"
               src="./images/kirill-pershin-1088404-unsplash.jpg"
-              alt="Изображение"
+              alt="Карачаево-Черкесия"
             />
             <div class="card__description">
               <h3 class="card__text">Карачаево-Ч...</h3>
-              <div class="card__like"></div>
+              <button class="card__like" type="button"></button>
             </div>
           </article>
         </section>
