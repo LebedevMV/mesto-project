@@ -15,33 +15,6 @@
   </head>
   <body class="page">
     <div class="page__container">
-      <div class="pop-up pop-up_is-closed">
-        <div class="pop-up__container">
-          <button class="pop-up__close" type="button"></button>
-          <form class="pop-up__main-container" name="edit-profile-form">
-            <h2 class="pop-up__heading">Редактировать профиль</h2>
-            <fieldset class="pop-up__input-container">
-              <input
-                class="pop-up__item pop-up__item_el_name"
-                name="name"
-                id="name"
-                type="text"
-                value="Жак-Ив Кусто"
-                placeholder="Введите имя"
-              />
-              <input
-                class="pop-up__item pop-up__item_el_bio"
-                name="bio"
-                id="bio"
-                type="text"
-                value="Исследователь океана"
-                placeholder="Расскажите о себе"
-              />
-            </fieldset>
-            <button class="pop-up__submit" type="submit">Сохранить</button>
-          </form>
-        </div>
-      </div>
       <header class="header">
         <img class="header__logo" alt="логотип" src="./images/logo.svg" />
       </header>
@@ -55,11 +28,19 @@
             />
             <div class="profile__info">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button" type="button" aria-label="Изменить данные"></button>
+              <button
+                class="profile__edit-button"
+                type="button"
+                aria-label="Изменить данные"
+              ></button>
               <p class="profile__bio">Исследователь океана</p>
             </div>
           </div>
-          <button class="profile__add-button" type="button" aria-label="Добавить изображение"></button>
+          <button
+            class="profile__add-button"
+            type="button"
+            aria-label="Добавить изображение"
+          ></button>
         </section>
         <section class="elements">
           <article class="card">
@@ -133,6 +114,33 @@
       <footer class="footer">
         <p class="footer__copyright">&COPY; 2020 Mesto Russia</p>
       </footer>
+    </div>
+    <div class="pop-up pop-up_is-closed">
+      <div class="pop-up__container">
+        <button class="pop-up__close" type="button"></button>
+        <form class="pop-up__main-container" name="edit-profile-form">
+          <h2 class="pop-up__heading">Редактировать профиль</h2>
+          <fieldset class="pop-up__input-container">
+            <input
+              class="pop-up__item pop-up__item_el_name"
+              name="name"
+              id="name"
+              type="text"
+              value="Жак-Ив Кусто"
+              placeholder="Введите имя"
+            />
+            <input
+              class="pop-up__item pop-up__item_el_bio"
+              name="bio"
+              id="bio"
+              type="text"
+              value="Исследователь океана"
+              placeholder="Расскажите о себе"
+            />
+          </fieldset>
+          <button class="pop-up__submit" type="submit">Сохранить</button>
+        </form>
+      </div>
     </div>
   </body>
 </html>

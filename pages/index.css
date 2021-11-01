@@ -10,8 +10,6 @@
 @import url(../blocks/pop-up/__heading/pop-up__heading.css);
 @import url(../blocks/pop-up/__input-container/pop-up__input-container.css);
 @import url(../blocks/pop-up/__item/pop-up-item.css);
-@import url(../blocks/pop-up/__item/_el/pop-up__item_el_name.css);
-@import url(../blocks/pop-up/__item/_el/pop-up__item_el_bio.css);
 @import url(../blocks/pop-up/__submit/pop-up__submit.css);
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);

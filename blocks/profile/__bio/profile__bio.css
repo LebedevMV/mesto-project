@@ -6,6 +6,16 @@
   font-size: 18px;
   line-height: 22px;
   grid-area: bio;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 430px;
+}
+
+@media screen and (max-width: 900px) {
+  .profile__bio {
+    max-width: 330px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -14,9 +24,6 @@
     line-height: 14px;
     text-align: center;
     margin: 0 auto;
-    text-overflow: ellipsis;
     max-width: 240px;
-    overflow: hidden;
-    white-space: nowrap;
   }
 }
