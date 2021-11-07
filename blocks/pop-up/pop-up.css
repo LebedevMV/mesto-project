@@ -6,7 +6,9 @@
   left: 0;
   bottom: 0;
   right: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  display: flex;
+  animation: fade 0.5s 0.3s normal  forwards ease-in;
 }

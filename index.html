@@ -115,7 +115,7 @@
         <p class="footer__copyright">&COPY; 2020 Mesto Russia</p>
       </footer>
     </div>
-    <div class="pop-up pop-up_is-closed">
+    <div class="pop-up pop-up_is-closed" id="edit-profile">
       <div class="pop-up__container">
         <button class="pop-up__close" type="button"></button>
         <form class="pop-up__main-container" name="edit-profile-form">
@@ -126,7 +126,6 @@
               name="name"
               id="name"
               type="text"
-              value="Жак-Ив Кусто"
               placeholder="Введите имя"
             />
             <input
@@ -134,7 +133,6 @@
               name="bio"
               id="bio"
               type="text"
-              value="Исследователь океана"
               placeholder="Расскажите о себе"
             />
           </fieldset>
@@ -142,5 +140,31 @@
         </form>
       </div>
     </div>
+    <div class="pop-up pop-up_is-closed" id="add-image">
+      <div class="pop-up__container">
+        <button class="pop-up__close" type="button"></button>
+        <form class="pop-up__main-container" name="add-image-form">
+          <h2 class="pop-up__heading">Новое место</h2>
+          <fieldset class="pop-up__input-container">
+            <input
+              class="pop-up__item pop-up__item_el_title"
+              name="title"
+              id="title"
+              type="text"
+              placeholder="Название"
+            />
+            <input
+              class="pop-up__item pop-up__item_el_image-link"
+              name="image-link"
+              id="image-link"
+              type="text"
+              placeholder="Ссылка на картинку"
+            />
+          </fieldset>
+          <button class="pop-up__submit" type="button">Создать</button>
+        </form>
+      </div>
+    </div>
+    <script src="./script.js"></script>
   </body>
 </html>
