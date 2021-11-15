@@ -42,74 +42,7 @@
             aria-label="Добавить изображение"
           ></button>
         </section>
-        <section class="elements">
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/kirill-pershin-1088404-unsplash.jpg"
-              alt="Карачаевск"
-            />
-            <div class="card__description">
-              <h3 class="card__text">Карачаевск</h3>
-              <button class="card__like" type="button"></button>
-            </div>
-          </article>
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/kirill-pershin-1404681-unsplash-1.jpg"
-              alt="Гора Эльбрус"
-            />
-            <div class="card__description">
-              <h3 class="card__text">Гора Эльбрус</h3>
-              <button class="card__like card__like_active"></button>
-            </div>
-          </article>
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/kirill-pershin-1556355-unsplash.jpg"
-              alt="Домбай"
-            />
-            <div class="card__description">
-              <h3 class="card__text">Домбай</h3>
-              <button class="card__like" type="button"></button>
-            </div>
-          </article>
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/kirill-pershin-1404681-unsplash-1.jpg"
-              alt="Гора Эльбрус"
-            />
-            <div class="card__description">
-              <h3 class="card__text">Гора Эльбрус</h3>
-              <button class="card__like card__like_active"></button>
-            </div>
-          </article>
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/kirill-pershin-1556355-unsplash.jpg"
-              alt="Домбай"
-            />
-            <div class="card__description">
-              <h3 class="card__text">Домбай</h3>
-              <button class="card__like" type="button"></button>
-            </div>
-          </article>
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/kirill-pershin-1088404-unsplash.jpg"
-              alt="Карачаево-Черкесия"
-            />
-            <div class="card__description">
-              <h3 class="card__text">Карачаево-Ч...</h3>
-              <button class="card__like" type="button"></button>
-            </div>
-          </article>
-        </section>
+        <section class="elements"></section>
       </main>
       <footer class="footer">
         <p class="footer__copyright">&COPY; 2020 Mesto Russia</p>
@@ -165,6 +98,24 @@
         </form>
       </div>
     </div>
+    <div class="pop-up popup_type_card-image pop-up_is-closed" id="view-image">
+      <div class="pop-up__container pop-up__container_type_card-image">
+        <button class="pop-up__close" type="button"></button>
+        <img class="pop-up__view-image" src="" alt="" />
+        <h3 class="pop-up__image-title"></h3>
+        https
+      </div>
+    </div>
+    <template id="card">
+      <article class="card">
+        <button class="card__delete-button" type="button"></button>
+        <img class="card__image" src="" alt="" />
+        <div class="card__description">
+          <h3 class="card__text"></h3>
+          <button class="card__like" type="button"></button>
+        </div>
+      </article>
+    </template>
     <script src="./script.js"></script>
   </body>
 </html>
