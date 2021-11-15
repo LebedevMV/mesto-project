@@ -77,13 +77,13 @@ function addImageSubmit() {
   const imageClick = newPost.querySelector(".card__image");
   imageClick.addEventListener("click", function (evt) {
     const eventTarget = evt.target;
-    const imageContent = content.querySelector(".pop-up__view-image")
-    imageContent.src = newPost.querySelector(".card__image").src
-    imageContent.alt = newPost.querySelector(".card__text").textContent
-    const imageTitle = content.querySelector(".pop-up__image-title")
-    imageTitle.textContent = newPost.querySelector(".card__text").textContent
+    const imageContent = content.querySelector(".pop-up__view-image");
+    imageContent.src = newPost.querySelector(".card__image").src;
+    imageContent.alt = newPost.querySelector(".card__text").textContent;
+    const imageTitle = content.querySelector(".pop-up__image-title");
+    imageTitle.textContent = newPost.querySelector(".card__text").textContent;
     popUpviewImage.classList.toggle("pop-up_is-closed");
-  })
+  });
   return images.prepend(newPost);
 }
 
@@ -148,13 +148,13 @@ function getImages(cards) {
     const popUpviewImage = content.querySelector("#view-image");
     const imageClick = newPost.querySelector(".card__image");
     imageClick.addEventListener("click", function (evt) {
-      const imageContent = content.querySelector(".pop-up__view-image")
-      imageContent.src = newPost.querySelector(".card__image").src
-      imageContent.alt = newPost.querySelector(".card__text").textContent
-      const imageTitle = content.querySelector(".pop-up__image-title")
-      imageTitle.textContent = newPost.querySelector(".card__text").textContent
+      const imageContent = content.querySelector(".pop-up__view-image");
+      imageContent.src = newPost.querySelector(".card__image").src;
+      imageContent.alt = newPost.querySelector(".card__text").textContent;
+      const imageTitle = content.querySelector(".pop-up__image-title");
+      imageTitle.textContent = newPost.querySelector(".card__text").textContent;
       popUpviewImage.classList.toggle("pop-up_is-closed");
-    })
+    });
     return images.prepend(newPost);
   });
 }
@@ -163,6 +163,6 @@ getImages(initialCards);
 
 const popUpviewImage = content.querySelector("#view-image");
 const viewCloseButton = popUpviewImage.querySelector(".pop-up__close");
-viewCloseButton.addEventListener("click", function() {
-  popUpviewImage.classList.toggle("pop-up_is-closed")
-})
+viewCloseButton.addEventListener("click", function () {
+  popUpviewImage.classList.toggle("pop-up_is-closed");
+});
