@@ -16,6 +16,7 @@ const addImageTitleEdit = popUpAddImage.querySelector(".pop-up__item_el_title");
 const addImageImageEdit = popUpAddImage.querySelector(
   ".pop-up__item_el_image-link"
 );
+const addImageImageForm = popUpAddImage.querySelector('#add-image-form')
 const addImageSubmitButton = popUpAddImage.querySelector(".pop-up__submit");
 //Выбираем элементы для попапа откпыимя изображения
 const popUpviewImage = content.querySelector("#view-image");
@@ -61,7 +62,7 @@ function addImageSubmit(evt) {
   const postLink = addImageImageEdit.value;
   const postName = addImageTitleEdit.value;
   createCard(postName, postLink);
-  popUpAddImage.reset();
+  addImageImageForm.reset();
   popUpClose(popUpAddImage);
   return images.prepend(newPost);
 }
