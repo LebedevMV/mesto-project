@@ -61,6 +61,7 @@ function addImageSubmit(evt) {
   const postLink = addImageImageEdit.value;
   const postName = addImageTitleEdit.value;
   createCard(postName, postLink);
+  popUpAddImage.reset();
   popUpClose(popUpAddImage);
   return images.prepend(newPost);
 }
