@@ -16,6 +16,7 @@ const addImageTitleEdit = popUpAddImage.querySelector(".pop-up__item_el_title");
 const addImageImageEdit = popUpAddImage.querySelector(
   ".pop-up__item_el_image-link"
 );
+const images = content.querySelector(".elements");
 const addImageImageForm = popUpAddImage.querySelector('.pop-up__main-container')
 const addImageSubmitButton = popUpAddImage.querySelector(".pop-up__submit");
 //Выбираем элементы для попапа откпыимя изображения
@@ -44,24 +45,12 @@ function profileSubmit(evt) {
   popUpClose(popUpProfileEdit);
 }
 
-function profileClose(evt) {
-  popUpClose(popUpProfileEdit);
-}
-
 // Функции попапа добавления изображения
-function addImageOpen() {
-  popUpOpen(popUpAddImage);
-}
-
-function addImageClose() {
-  popUpClose(popUpAddImage);
-}
-
 function addImageSubmit(evt) {
   evt.preventDefault();
   const postLink = addImageImageEdit.value;
   const postName = addImageTitleEdit.value;
-  createCard(postName, postLink);
+  postCard(images, createCard(postName, postLink));
   addImageImageForm.reset();
   popUpClose(popUpAddImage);
   return images.prepend(newPost);
@@ -69,17 +58,16 @@ function addImageSubmit(evt) {
 
 // Слушатели попапа редактирования профиля
 profileEditButton.addEventListener("click", profileEdit);
-profileEditCloseButton.addEventListener("click", profileClose);
+profileEditCloseButton.addEventListener("click", () => popUpClose(popUpProfileEdit));
 popUpProfileEdit.addEventListener("submit", profileSubmit);
 // Слушатели попапа добавления изображения
-addImageButton.addEventListener("click", addImageOpen);
-addImageCloseButton.addEventListener("click", addImageClose);
+addImageButton.addEventListener("click", () =>  popUpOpen(popUpAddImage));
+addImageCloseButton.addEventListener("click", () => popUpClose(popUpAddImage));
 popUpAddImage.addEventListener("submit", addImageSubmit);
 
-// Подгрузка карточек
+// Создание карточки
 
 function createCard(name, link) {
-  const images = content.querySelector(".elements");
   const post = content.querySelector("#card").content;
   const newPost = post.querySelector(".card").cloneNode(true);
   newPost.querySelector(".card__image").src = link;
@@ -99,7 +87,6 @@ function createCard(name, link) {
     const postDelete = eventTarget.parentElement;
     postDelete.remove();
   });
-
   // Открытие изображения
 
   const popUpviewImage = content.querySelector("#view-image");
@@ -110,14 +97,20 @@ function createCard(name, link) {
     imageContent.alt = newPost.querySelector(".card__text").textContent;
     const imageTitle = content.querySelector(".pop-up__image-title");
     imageTitle.textContent = newPost.querySelector(".card__text").textContent;
-    popUpviewImage.classList.toggle("pop-up_is-closed");
+    popUpOpen(popUpviewImage);
   });
-  return images.prepend(newPost);
+  return newPost;
 }
 
-viewCloseButton.addEventListener("click", function () {
-  popUpviewImage.classList.toggle("pop-up_is-closed");
-});
+// Добавление карточки
+
+function postCard(container, post) {
+  return container.prepend(post);
+}
+
+// return images.prepend(newPost);
+
+viewCloseButton.addEventListener("click", () => popUpClose(popUpviewImage));
 
 const initialCards = [
   {
@@ -152,7 +145,7 @@ function getImages(cards) {
   cards.forEach(function (item) {
     const postLink = item.link;
     const postName = item.name;
-    createCard(postName, postLink);
+    postCard(images, createCard(postName, postLink));
   });
 }
 
