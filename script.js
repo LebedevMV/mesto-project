@@ -9,15 +9,17 @@ const profileBioEdit = popUpProfileEdit.querySelector(".pop-up__item_el_bio");
 const profileSubmitButton = popUpProfileEdit.querySelector(".pop-up__submit");
 const profileName = content.querySelector(".profile__name");
 const profileBio = content.querySelector(".profile__bio");
+const formElements = Array.from(document.querySelectorAll(".pop-up"));
+
 
 // Функции для попапа редактирования профиля
 function profileOpen() {
-  popUpProfileEdit.classList.toggle("pop-up_is-closed");
+  popUpProfileEdit.classList.remove("pop-up_is-closed");
   profileNameEdit.value = profileName.textContent;
   profileBioEdit.value = profileBio.textContent;
 }
 function profileClose() {
-  popUpProfileEdit.classList.toggle("pop-up_is-closed");
+  popUpProfileEdit.classList.add("pop-up_is-closed");
 }
 
 function profileSubmit(evt) {
@@ -29,7 +31,6 @@ function profileSubmit(evt) {
 
 // Слушатели событий для попапа редактирования профиля
 profileEditButton.addEventListener("click", profileOpen);
-profileEditCloseButton.addEventListener("click", profileClose);
 profileSubmitButton.addEventListener("click", profileSubmit);
 
 // Выбираем элементы для попапа добавления изображения
@@ -87,10 +88,11 @@ function addImageSubmit() {
   return images.prepend(newPost);
 }
 
-// Слушатели событий для попапа редактирования профиля
+// Слушатели событий для попапа добавления изображения
 addImageButton.addEventListener("click", addImageToggle);
 addImageCloseButton.addEventListener("click", addImageToggle);
 addImageSubmitButton.addEventListener("click", addImageSubmit);
+
 
 // Подгрузка карточек
 
@@ -163,6 +165,32 @@ getImages(initialCards);
 
 const popUpviewImage = content.querySelector("#view-image");
 const viewCloseButton = popUpviewImage.querySelector(".pop-up__close");
-viewCloseButton.addEventListener("click", function () {
+function viewImageToggle() {
   popUpviewImage.classList.toggle("pop-up_is-closed");
+}
+
+
+// Закрытие всех поп-апов по esc / клику по крестику или заднему фону
+
+document.addEventListener("keydown", function (evt) {
+  if (evt.key === "Escape") {
+    formElements.forEach((formElement) => {
+      formElement.classList.add("pop-up_is-closed");
+    });
+  }
+});
+
+document.addEventListener("click", function (evt) {
+  if (
+    evt.target.classList.contains("pop-up")) {
+    evt.target.classList.add("pop-up_is-closed")
+  }
+});
+
+document.addEventListener("click", function (evt) {
+  if (
+    evt.target.classList.contains("pop-up__close")
+  ) {
+    evt.target.parentElement.parentElement.classList.add("pop-up_is-closed")
+  }
 });
