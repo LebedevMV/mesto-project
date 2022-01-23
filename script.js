@@ -11,6 +11,72 @@ const profileName = content.querySelector(".profile__name");
 const profileBio = content.querySelector(".profile__bio");
 const formElements = Array.from(document.querySelectorAll(".pop-up"));
 
+const showError = (form, input, errorMessage) => {
+  const errorElement = form.querySelector(`.${input.id}-error`);
+  errorElement.textContent = errorMessage;
+  input.classList.add("pop-up__item_type_error");
+  errorElement.classList.add("pop-up__item-error_active");
+};
+
+const hideError = (form, input) => {
+  const errorElement = form.querySelector(`.${input.id}-error`);
+  errorElement.textContent = "";
+  input.classList.remove("pop-up__item_type_error");
+  errorElement.classList.remove("pop-up__item-error_active");
+};
+
+const isValid = (form, input) => {
+  if (input.validity.valid) {
+    hideError(form, input);
+  } else {
+    showError(form, input, input.validationMessage);
+  }
+};
+
+const hasInvalidInput = (inputArr) => {
+  return inputArr.some((input) => {
+    return !input.validity.valid;
+  });
+};
+
+
+const setButtonState = (inputArr, submit) => {
+  if (!hasInvalidInput(inputArr)) {
+    submit.classList.remove("pop-up__submit_disabled");
+  } else submit.classList.add("pop-up__submit_disabled");
+};
+
+const inputEventListeners = (form) => {
+  const inputArr = Array.from(form.querySelectorAll(".pop-up__item"));
+  const submit = form.querySelector(".pop-up__submit");
+  if (submit != null) {
+    setButtonState(inputArr, submit);
+    inputArr.forEach((input) =>
+      input.addEventListener("input", () => {
+        setButtonState(inputArr, submit);
+        isValid(form, input);
+      })
+    );
+  } else {
+    return
+  }
+};
+
+//const profile = document.forms.profile
+//inputEventListeners(profile)
+
+const startValidation = () => {
+  const formsArray = Array.from(document.querySelectorAll(".pop-up"));
+  formsArray.forEach((form) => {
+    form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+    });
+    inputEventListeners(form);
+  });
+};
+
+startValidation();
+
 
 // Функции для попапа редактирования профиля
 function profileOpen() {
@@ -28,6 +94,8 @@ function profileSubmit(evt) {
   profileBio.textContent = profileBioEdit.value;
   profileClose();
 }
+
+
 
 // Слушатели событий для попапа редактирования профиля
 profileEditButton.addEventListener("click", profileOpen);
@@ -61,7 +129,6 @@ function addImageSubmit() {
   addImageToggle();
 
   const postLikeButton = newPost.querySelector(".card__like");
-  console.log(postLikeButton);
   postLikeButton.addEventListener("click", function (evt) {
     const eventTarget = evt.target;
     eventTarget.classList.toggle("card__like_active");
@@ -92,7 +159,6 @@ function addImageSubmit() {
 addImageButton.addEventListener("click", addImageToggle);
 addImageCloseButton.addEventListener("click", addImageToggle);
 addImageSubmitButton.addEventListener("click", addImageSubmit);
-
 
 // Подгрузка карточек
 
@@ -169,7 +235,6 @@ function viewImageToggle() {
   popUpviewImage.classList.toggle("pop-up_is-closed");
 }
 
-
 // Закрытие всех поп-апов по esc / клику по крестику или заднему фону
 
 document.addEventListener("keydown", function (evt) {
@@ -181,16 +246,13 @@ document.addEventListener("keydown", function (evt) {
 });
 
 document.addEventListener("click", function (evt) {
-  if (
-    evt.target.classList.contains("pop-up")) {
-    evt.target.classList.add("pop-up_is-closed")
+  if (evt.target.classList.contains("pop-up")) {
+    evt.target.classList.add("pop-up_is-closed");
   }
 });
 
 document.addEventListener("click", function (evt) {
-  if (
-    evt.target.classList.contains("pop-up__close")
-  ) {
-    evt.target.parentElement.parentElement.classList.add("pop-up_is-closed")
+  if (evt.target.classList.contains("pop-up__close")) {
+    evt.target.parentElement.parentElement.classList.add("pop-up_is-closed");
   }
 });
