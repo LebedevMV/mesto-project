@@ -51,7 +51,7 @@
     <div class="pop-up pop-up_is-closed" id="edit-profile">
       <div class="pop-up__container">
         <button class="pop-up__close" type="button"></button>
-        <form class="pop-up__main-container" name="edit-profile-form" novalidate>
+        <form class="pop-up__main-container" name="profile" novalidate>
           <h2 class="pop-up__heading">Редактировать профиль</h2>
           <fieldset class="pop-up__input-container">
             <input
@@ -64,6 +64,7 @@
               minlength="2"
               maxlength="40"
             />
+            <span class="name-error pop-up__item-error"></span>
             <input
               class="pop-up__item pop-up__item_el_bio"
               name="bio"
@@ -74,6 +75,7 @@
               minlength="2"
               maxlength="200"
             />
+            <span class="bio-error pop-up__item-error"></span>
           </fieldset>
           <button class="pop-up__submit" type="submit">Сохранить</button>
         </form>
@@ -91,14 +93,19 @@
               id="title"
               type="text"
               placeholder="Название"
+              required
+              minlength="1"
             />
+            <span class="title-error pop-up__item-error"></span>
             <input
               class="pop-up__item pop-up__item_el_image-link"
               name="image-link"
               id="image-link"
-              type="text"
+              type="url"
               placeholder="Ссылка на картинку"
+              required
             />
+            <span class="image-link-error pop-up__item-error"></span>
           </fieldset>
           <button class="pop-up__submit" type="button">Создать</button>
         </form>
