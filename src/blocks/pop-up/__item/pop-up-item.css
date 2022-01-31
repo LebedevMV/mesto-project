@@ -1,0 +1,23 @@
+.pop-up__item {
+  border: 0;
+  width: 100%;
+  max-width: 358px;
+  height: 27px;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: transparent;
+  margin-top: 5px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-size: 14px;
+  line-height: 14px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0;
+  padding-bottom: 0px;
+}
+
+.pop-up__item:nth-of-type(2)  {
+  margin-top: 30px;
+}

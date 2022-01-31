@@ -1,0 +1,6 @@
+.pop-up__main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+}
