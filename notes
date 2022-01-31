@@ -1,9 +1,0 @@
-import {
-  addImageButton,
-  addImageCloseButton,
-  addImageSubmitButton,
-  addImageToggle,
-  addImageSubmit,
-  initialCards,
-  getImages,
-}
