@@ -11,18 +11,17 @@
     <meta name="keywords" content="Место, Россия, Mesto, Russia" />
     <meta name="author" content="Максим Лебедев" />
     <title>Mesto Russia</title>
-    <link rel="stylesheet" type="text/css" href="./pages/index.css" />
   </head>
   <body class="page">
     <div class="page__container">
       <header class="header">
-        <img class="header__logo" alt="логотип" src="./images/logo.svg" />
+        <img class="header__logo" alt="логотип" src="<%=require('./images/logo.svg')%>" />
       </header>
       <main class="content">
         <section class="profile">
           <div class="profile__container">
             <img
-              src="./images/image.jpg"
+              src="<%=require('./images/image.jpg')%>"
               alt="Аватар"
               class="profile__avatar"
             />
@@ -128,10 +127,5 @@
         </div>
       </article>
     </template>
-    <script src="./script.js"></script>
-    <script type="module" src="./src/index.js"></script>
-    <script type="module" src="./src/components/card.js"></script>
-    <script type="module" src="./src/components/validation.js"></script>
-    <script type="module" src="./src/components/modal.js"></script>
   </body>
 </html>
