@@ -1,39 +1,67 @@
+import { addImagePopup } from "./card.js";
+import { openPopup, closePopup } from "./utils.js";
+
 const content = document.querySelector(".page");
 
 // Выбираем элементы для попапа редактирования профиля
-const popUpProfileEdit = content.querySelector("#edit-profile");
+export const editProfilePopUp = content.querySelector("#edit-profile");
+export const editProfileForm = editProfilePopUp.querySelector(
+  ".pop-up__main-container"
+);
 export const profileEditButton = content.querySelector(".profile__edit-button");
-const profileNameEdit = popUpProfileEdit.querySelector(".pop-up__item_el_name");
-const profileBioEdit = popUpProfileEdit.querySelector(".pop-up__item_el_bio");
-export const profileSubmitButton = popUpProfileEdit.querySelector(".pop-up__submit");
+const profileNameEdit = editProfilePopUp.querySelector(".pop-up__item_el_name");
+const profileBioEdit = editProfilePopUp.querySelector(".pop-up__item_el_bio");
+export const submitProfileButton =
+  editProfilePopUp.querySelector(".pop-up__submit");
 const profileName = content.querySelector(".profile__name");
 const profileBio = content.querySelector(".profile__bio");
-
-
+const popups = document.querySelectorAll(".pop-up");
 
 // Функции для попапа редактирования профиля
-export function profileOpen() {
-  popUpProfileEdit.classList.remove("pop-up_is-closed");
+export function openProfileEditor() {
   profileNameEdit.value = profileName.textContent;
   profileBioEdit.value = profileBio.textContent;
-}
-function profileClose() {
-  popUpProfileEdit.classList.add("pop-up_is-closed");
+  openPopup(editProfilePopUp);
 }
 
-export function profileSubmit(evt) {
+export function submitProfile(evt) {
   evt.preventDefault();
   profileName.textContent = profileNameEdit.value;
   profileBio.textContent = profileBioEdit.value;
-  profileClose();
+  closePopup(editProfilePopUp);
+}
+
+// Функции для попапа редактирования изображения
+
+export function openAddImagePopup() {
+  openPopup(addImagePopup);
 }
 
 // Закрытие всех поп-апов по esc / клику по крестику или заднему фону
+const popUpsArray = Array.from(document.querySelectorAll(".pop-up"));
 
+function isOpened (item) {
+  if (!item.classList.contains("pop-up_is-closed")){
+    return true
+  } else return false
+}
 
-export const closePopUp = () => {
-  const popUps = Array.from(document.querySelectorAll(".pop-up"));
-  popUps.forEach((popup) => {
-    popup.classList.add("pop-up_is-closed");
-  })
+export function closeByEscape(evt) {
+  const openedPopup = Array.from(popups).find(isOpened)
+  if (evt.key === "Escape") {
+    closePopup(openedPopup);
+  }
+}
+
+export const setCloseListeners = () => {
+  popUpsArray.forEach((popup) => {
+  popup.addEventListener("mousedown", (evt) => {
+    if (!evt.target.classList.contains("pop-up_is-closed") && evt.target.classList.contains("pop-up")) {
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains("pop-up__close")) {
+      closePopup(popup);
+    }
+  });
+});
 }
