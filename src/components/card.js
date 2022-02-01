@@ -1,25 +1,25 @@
-const popUpAddImage = document.querySelector("#add-image");
+import { closePopup, openPopup } from "./utils.js";
+export const addImagePopup = document.querySelector("#add-image");
+export const addImageForm = addImagePopup.querySelector(".pop-up__main-container");
 export const addImageButton = document.querySelector(".profile__add-button");
-export const addImageSubmitButton =
-  popUpAddImage.querySelector(".pop-up__submit");
+export const submitNewImageButton =
+  addImagePopup.querySelector(".pop-up__submit");
+const gallery = document.querySelector(".elements");
+const post = document.querySelector("#card").content;
+const popUpviewImage = document.querySelector("#view-image");
+const imageContent = document.querySelector(".pop-up__view-image");
+const imageTitle = document.querySelector(".pop-up__image-title");
 
-export function addImageOpen() {
-  popUpAddImage.classList.remove("pop-up_is-closed");
-}
-
-function addImageClose() {
-  popUpAddImage.classList.add("pop-up_is-closed");
-}
-
-export function addImageSubmit() {
-  const post = document.querySelector("#card").content;
-  const newPost = post.querySelector(".card").cloneNode(true);
-  const gallery = document.querySelector(".elements");
-  createPost(newPost);
-  setDeleteListener(newPost);
-  setLikeListener(newPost);
-  setOpenListener(newPost);
-  return gallery.prepend(newPost);
+export function submitNewImage() {
+  const src = {};
+  let link = addImagePopup.querySelector(".pop-up__item_el_image-link");
+  let name = addImagePopup.querySelector(".pop-up__item_el_title");
+  src.link = link.value;
+  src.name = name.value;
+  gallery.prepend(createPost(src));
+  name.value = "";
+  link.value = "";
+  closePopup(addImagePopup);
 }
 
 export const initialCards = [
@@ -49,24 +49,24 @@ export const initialCards = [
   },
 ];
 
-const createPost = (newPost) => {
-  const addImageImageEdit = popUpAddImage.querySelector(
-    ".pop-up__item_el_image-link"
-  );
-  const addImageTitleEdit = popUpAddImage.querySelector(
-    ".pop-up__item_el_title"
-  );
-  newPost.querySelector(".card__image").src = addImageImageEdit.value;
-  newPost.querySelector(".card__image").alt = addImageTitleEdit.value;
-  newPost.querySelector(".card__text").textContent = addImageTitleEdit.value;
-  addImageClose();
-  addImageTitleEdit.value = "";
-  addImageImageEdit.value = "";
+const createPost = (src) => {
+  const newPost = createCardNode();
+  fillPost(src, newPost);
+  setDeleteListener(newPost);
+  setLikeListener(newPost);
+  ``;
+  setOpenListener(newPost);
+  return newPost;
 };
 
-const createPosts = (item, newPost) => {
-  newPost.querySelector(".card__image").src = item.link;
-  newPost.querySelector(".card__image").alt = item.name;
+const createCardNode = () => {
+  return post.querySelector(".card").cloneNode(true);
+};
+
+const fillPost = (item, newPost) => {
+  const cardImage = newPost.querySelector(".card__image");
+  cardImage.src = item.link;
+  cardImage.alt = item.name;
   newPost.querySelector(".card__text").textContent = item.name;
 };
 
@@ -81,10 +81,7 @@ const setLikeListener = (newPost) => {
 const setDeleteListener = (newPost) => {
   const postDeleteButton = newPost.querySelector(".card__delete-button");
   postDeleteButton.addEventListener("click", function (evt) {
-    const eventTarget = evt.target;
-
-    const postDelete = eventTarget.parentElement;
-    postDelete.remove();
+    newPost.remove();
   });
 };
 
@@ -96,26 +93,15 @@ const setOpenListener = (newPost) => {
 };
 
 export function getImages(cards) {
-  cards.forEach(function (item) {
-    const post = document.querySelector("#card").content;
-    const newPost = post.querySelector(".card").cloneNode(true);
-    const gallery = document.querySelector(".elements");
-    createPosts(item, newPost);
-    setDeleteListener(newPost);
-    setLikeListener(newPost);
-    setOpenListener(newPost);
-    return gallery.prepend(newPost);
+  const gallery = document.querySelector(".elements");
+  cards.forEach(function (src) {
+    return gallery.prepend(createPost(src));
   });
 }
 
 const viewImage = (evt) => {
-  const popUpviewImage = document.querySelector("#view-image");
-  const imageContent = document.querySelector(".pop-up__view-image");
-  imageContent.src = evt.target.parentElement.querySelector(".card__image").src;
-  imageContent.alt =
-    evt.target.parentElement.querySelector(".card__text").textContent;
-  const imageTitle = document.querySelector(".pop-up__image-title");
-  imageTitle.textContent =
-    evt.target.parentElement.querySelector(".card__text").textContent;
-  popUpviewImage.classList.toggle("pop-up_is-closed");
+  imageContent.src = evt.target.src;
+  imageContent.alt = evt.target.alt;
+  imageTitle.textContent = evt.target.alt;
+  openPopup(popUpviewImage);
 };

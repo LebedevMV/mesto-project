@@ -28,8 +28,11 @@ const hasInvalidInput = (inputArr) => {
 
 const setButtonState = (inputArr, submit, config) => {
   if (!hasInvalidInput(inputArr)) {
-    submit.classList.remove(config.inactiveButtonClass);
-  } else submit.classList.add(config.inactiveButtonClass);
+    submit.classList.remove(config.inactiveButtonClass)
+    return submit.removeAttribute('disabled')
+
+  } else submit.classList.add(config.inactiveButtonClass)
+  return submit.setAttribute('disabled', '')
 };
 
 const inputEventListeners = (form, config) => {
@@ -43,11 +46,13 @@ const inputEventListeners = (form, config) => {
         isValid(form, input, config);
       })
     );
+    form.addEventListener("submit", () => {
+      setButtonState(inputArr, submit, config);
+    });
   } else {
     return;
   }
 };
-
 
 export const startValidation = (config) => {
   const formsArray = Array.from(document.querySelectorAll(config.formSelector));
@@ -56,6 +61,5 @@ export const startValidation = (config) => {
       evt.preventDefault();
     });
     inputEventListeners(form, config);
-  })
+  });
 };
-
