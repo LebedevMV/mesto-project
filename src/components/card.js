@@ -9,11 +9,12 @@ const post = document.querySelector("#card").content;
 const popUpviewImage = document.querySelector("#view-image");
 const imageContent = document.querySelector(".pop-up__view-image");
 const imageTitle = document.querySelector(".pop-up__image-title");
+const link = addImagePopup.querySelector(".pop-up__item_el_image-link");
+const name = addImagePopup.querySelector(".pop-up__item_el_title");
+
 
 export function submitNewImage() {
   const src = {};
-  let link = addImagePopup.querySelector(".pop-up__item_el_image-link");
-  let name = addImagePopup.querySelector(".pop-up__item_el_title");
   src.link = link.value;
   src.name = name.value;
   gallery.prepend(createPost(src));
@@ -93,7 +94,6 @@ const setOpenListener = (newPost) => {
 };
 
 export function getImages(cards) {
-  const gallery = document.querySelector(".elements");
   cards.forEach(function (src) {
     return gallery.prepend(createPost(src));
   });
