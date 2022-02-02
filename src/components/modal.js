@@ -47,8 +47,8 @@ function isOpened (item) {
 }
 
 export function closeByEscape(evt) {
-  const openedPopup = Array.from(popups).find(isOpened)
   if (evt.key === "Escape") {
+    const openedPopup = Array.from(popups).find(isOpened)
     closePopup(openedPopup);
   }
 }
