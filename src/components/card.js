@@ -12,6 +12,11 @@ const imageTitle = document.querySelector(".pop-up__image-title");
 const link = addImagePopup.querySelector(".pop-up__item_el_image-link");
 const name = addImagePopup.querySelector(".pop-up__item_el_title");
 
+export const fetchCards = (arr) => {
+  arr.forEach(function (src) {
+    return gallery.prepend(createPost(src));
+  });
+}
 
 export function submitNewImage() {
   const src = {};

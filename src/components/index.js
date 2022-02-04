@@ -1,5 +1,5 @@
 import "../pages/index.css";
-
+let userId = "";
 
 import { startValidation } from "./validation.js";
 
@@ -18,6 +18,7 @@ import {
   submitNewImage,
   initialCards,
   getImages,
+  fetchCards,
 } from "./card.js";
 
 addImageForm.addEventListener("submit", submitNewImage);
@@ -31,10 +32,39 @@ import {
   editProfileForm,
   openProfileEditor,
   openAddImagePopup,
-  setCloseListeners
+  setCloseListeners,
+  setUserInfo,
+  setUserPic,
 } from "./modal.js";
 
 profileEditButton.addEventListener("click", openProfileEditor);
 editProfileForm.addEventListener("submit", submitProfile);
 
-setCloseListeners()
+setCloseListeners();
+
+import { getUser, getCards, addNewPost, editUserInfo } from "./api.js";
+
+
+editUserInfo('sda', 'sads')
+getUser();
+getCards();
+addNewPost("Тихий", "https://images.unsplash.com/photo-1643800870843-19b0fa733401?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80")
+
+getUser()
+  .then((res) => {
+    (userId = res._id),
+      setUserInfo(res.name, res.about),
+      setUserPic(res.avatar);
+  })
+  .catch((err) => {
+    console.log(err.status);
+  });
+
+getCards()
+  .then((res) => {
+    fetchCards(res);
+  })
+  .catch((err) => {
+    console.log(err.status);
+  });
+
