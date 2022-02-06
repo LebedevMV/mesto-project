@@ -1,6 +1,4 @@
 import "../pages/index.css";
-let userId = "";
-
 import { startValidation } from "./validation.js";
 
 startValidation({
@@ -31,26 +29,35 @@ import {
   setCloseListeners,
   setUserInfo,
   setUserPic,
+  submitAvatar,
+  changeAvaButton,
+  openAvaEditor,
+  changeAvaForm
 } from "./modal.js";
 
 profileEditButton.addEventListener("click", openProfileEditor);
 editProfileForm.addEventListener("submit", submitProfile);
+changeAvaButton.addEventListener("click", openAvaEditor)
+changeAvaForm.addEventListener("submit", submitAvatar)
 
 setCloseListeners();
 
-import { getUser, getCards, addNewPost } from "./api.js";
+import { getUser, getCards } from "./api.js";
+export let userId = "";
 
-getUser();
-getCards();
 
 getUser()
+  .then(res => {
+    userId = res._id
+    return res
+  })
   .then((res) => {
-    (userId = res._id),
       setUserInfo(res.name, res.about),
       setUserPic(res.avatar);
+      return res
   })
   .catch((err) => {
-    console.log(err.status);
+    console.log(err);
   });
 
 getCards()
@@ -58,5 +65,5 @@ getCards()
     fetchCards(res);
   })
   .catch((err) => {
-    console.log(err.status);
+    console.log(err);
   });

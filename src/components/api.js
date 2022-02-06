@@ -35,7 +35,7 @@ export const editUserInfo = (name, about) => {
       about: about,
     }),
   }).then((res) => {
-    return console.log(getResponseData(res));
+    return getResponseData(res);
   });
 };
 
@@ -46,9 +46,10 @@ export const editUserAvatar = (pic) => {
     body: JSON.stringify({
       avatar: pic,
     }),
-  }).then((res) => {
-    return console.log(getResponseData(res));
-  });
+  })
+    .then((res) => {
+      return getResponseData(res);
+    });
 };
 
 export const addNewPost = (title, post) => {
@@ -59,6 +60,33 @@ export const addNewPost = (title, post) => {
       name: title,
       link: post,
     }),
+  }).then((res) => {
+    return getResponseData(res);
+  });
+};
+
+export const removePost = (id) => {
+  return fetch(`${config.baseUrl}/cards/${id}`, {
+    method: "DELETE",
+    headers: config.headers,
+  }).then((res) => {
+    return getResponseData(res);
+  });
+};
+
+export const likePost = (id) => {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+    method: "PUT",
+    headers: config.headers,
+  }).then((res) => {
+    return getResponseData(res);
+  });
+};
+
+export const removeLike = (id) => {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+    method: "DELETE",
+    headers: config.headers,
   }).then((res) => {
     return getResponseData(res);
   });

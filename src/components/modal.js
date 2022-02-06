@@ -18,7 +18,31 @@ const profileName = content.querySelector(".profile__name");
 const profileBio = content.querySelector(".profile__bio");
 const profilePic = content.querySelector(".profile__avatar");
 const popups = document.querySelectorAll(".pop-up");
+const changeAva = content.querySelector("#change-ava");
+export const changeAvaButton = content.querySelector(".profile__overlay");
+export const changeAvaForm = changeAva.querySelector(".pop-up__main-container");
 
+export const submitAvatar = () => {
+  changeAva.querySelector(".pop-up__submit").textContent = "Сохранение";
+  const newAvaLink = changeAva.querySelector("#ava-link");
+  editUserAvatar(newAvaLink.value)
+    .then((res) => {
+      setUserPic(res.avatar);
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally((res) => {
+      closePopup(changeAva);
+      newAvaLink.value = "";
+      changeAva.querySelector(".pop-up__submit").textContent = "Сохранить";
+    });
+};
+
+export const openAvaEditor = () => {
+  openPopup(changeAva);
+};
 // Функции для попапа редактирования профиля
 export function openProfileEditor() {
   profileNameEdit.value = profileName.textContent;
@@ -27,16 +51,22 @@ export function openProfileEditor() {
 }
 
 export function submitProfile(evt) {
+  editProfilePopUp.querySelector(".pop-up__submit").textContent = "Сохранение";
   evt.preventDefault();
-  editUserInfo(profileNameEdit.value, profileBioEdit.value)
-  .then(getUser()
-    .then((res) => {
-      setUserInfo(res.name, res.about);
-    })
-    .catch((err) => {
-      console.log(err.status);
-    })).catch(res => console.log(res))
-  closePopup(editProfilePopUp);
+  editUserInfo(profileNameEdit.value, profileBioEdit.value).then(
+    getUser()
+      .then((res) => {
+        setUserInfo(res.name, res.about);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally((res) => {
+        editProfilePopUp.querySelector(".pop-up__submit").textContent =
+          "Сохранить";
+        closePopup(editProfilePopUp);
+      })
+  );
 }
 
 export const setUserInfo = (name, bio) => {

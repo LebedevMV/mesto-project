@@ -24,7 +24,8 @@
       <main class="content">
         <section class="profile">
           <div class="profile__container">
-            <img src="" alt="Аватар" class="profile__avatar" />
+              <img src="" alt="Аватар" class="profile__avatar" />
+              <div class="profile__overlay"></div>
             <div class="profile__info">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
               <button
@@ -107,6 +108,26 @@
             <span class="image-link-error pop-up__item-error"></span>
           </fieldset>
           <button class="pop-up__submit" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="pop-up pop-up_is-closed" id="change-ava">
+      <div class="pop-up__container">
+        <button class="pop-up__close" type="button"></button>
+        <form class="pop-up__main-container" name="change-ava-form" novalidate>
+          <h2 class="pop-up__heading">Новое место</h2>
+          <fieldset class="pop-up__input-container">
+            <input
+              class="pop-up__item pop-up__item_el_ava-link"
+              name="ava-link"
+              id="ava-link"
+              type="url"
+              placeholder="Ссылка на аватар"
+              required
+            />
+            <span class="ava-link-error pop-up__item-error"></span>
+          </fieldset>
+          <button class="pop-up__submit" type="submit">Сохранить</button>
         </form>
       </div>
     </div>
