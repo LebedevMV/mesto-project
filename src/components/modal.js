@@ -1,5 +1,6 @@
 import { addImagePopup } from "./card.js";
 import { openPopup, closePopup } from "./utils.js";
+import { editUserInfo, getUser, editUserAvatar } from "./api.js";
 
 const content = document.querySelector(".page");
 
@@ -15,8 +16,33 @@ export const submitProfileButton =
   editProfilePopUp.querySelector(".pop-up__submit");
 const profileName = content.querySelector(".profile__name");
 const profileBio = content.querySelector(".profile__bio");
+const profilePic = content.querySelector(".profile__avatar");
 const popups = document.querySelectorAll(".pop-up");
+const changeAva = content.querySelector("#change-ava");
+export const changeAvaButton = content.querySelector(".profile__overlay");
+export const changeAvaForm = changeAva.querySelector(".pop-up__main-container");
 
+export const submitAvatar = () => {
+  changeAva.querySelector(".pop-up__submit").textContent = "Сохранение";
+  const newAvaLink = changeAva.querySelector("#ava-link");
+  editUserAvatar(newAvaLink.value)
+    .then((res) => {
+      setUserPic(res.avatar);
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally((res) => {
+      closePopup(changeAva);
+      newAvaLink.value = "";
+      changeAva.querySelector(".pop-up__submit").textContent = "Сохранить";
+    });
+};
+
+export const openAvaEditor = () => {
+  openPopup(changeAva);
+};
 // Функции для попапа редактирования профиля
 export function openProfileEditor() {
   profileNameEdit.value = profileName.textContent;
@@ -25,11 +51,32 @@ export function openProfileEditor() {
 }
 
 export function submitProfile(evt) {
+  editProfilePopUp.querySelector(".pop-up__submit").textContent = "Сохранение";
   evt.preventDefault();
-  profileName.textContent = profileNameEdit.value;
-  profileBio.textContent = profileBioEdit.value;
-  closePopup(editProfilePopUp);
+  editUserInfo(profileNameEdit.value, profileBioEdit.value).then(
+    getUser()
+      .then((res) => {
+        setUserInfo(res.name, res.about);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally((res) => {
+        editProfilePopUp.querySelector(".pop-up__submit").textContent =
+          "Сохранить";
+        closePopup(editProfilePopUp);
+      })
+  );
 }
+
+export const setUserInfo = (name, bio) => {
+  profileName.textContent = name;
+  profileBio.textContent = bio;
+};
+
+export const setUserPic = (pic) => {
+  profilePic.setAttribute("src", pic);
+};
 
 // Функции для попапа редактирования изображения
 
@@ -40,28 +87,31 @@ export function openAddImagePopup() {
 // Закрытие всех поп-апов по esc / клику по крестику или заднему фону
 const popUpsArray = Array.from(document.querySelectorAll(".pop-up"));
 
-function isOpened (item) {
-  if (!item.classList.contains("pop-up_is-closed")){
-    return true
-  } else return false
+function isOpened(item) {
+  if (!item.classList.contains("pop-up_is-closed")) {
+    return true;
+  } else return false;
 }
 
 export function closeByEscape(evt) {
   if (evt.key === "Escape") {
-    const openedPopup = Array.from(popups).find(isOpened)
+    const openedPopup = Array.from(popups).find(isOpened);
     closePopup(openedPopup);
   }
 }
 
 export const setCloseListeners = () => {
   popUpsArray.forEach((popup) => {
-  popup.addEventListener("mousedown", (evt) => {
-    if (!evt.target.classList.contains("pop-up_is-closed") && evt.target.classList.contains("pop-up")) {
-      closePopup(popup);
-    }
-    if (evt.target.classList.contains("pop-up__close")) {
-      closePopup(popup);
-    }
+    popup.addEventListener("mousedown", (evt) => {
+      if (
+        !evt.target.classList.contains("pop-up_is-closed") &&
+        evt.target.classList.contains("pop-up")
+      ) {
+        closePopup(popup);
+      }
+      if (evt.target.classList.contains("pop-up__close")) {
+        closePopup(popup);
+      }
+    });
   });
-});
-}
+};
