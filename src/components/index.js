@@ -16,15 +16,11 @@ import {
   addImageButton,
   addImageForm,
   submitNewImage,
-  initialCards,
-  getImages,
   fetchCards,
 } from "./card.js";
 
 addImageForm.addEventListener("submit", submitNewImage);
 addImageButton.addEventListener("click", openAddImagePopup);
-
-getImages(initialCards);
 
 import {
   submitProfile,
@@ -42,13 +38,10 @@ editProfileForm.addEventListener("submit", submitProfile);
 
 setCloseListeners();
 
-import { getUser, getCards, addNewPost, editUserInfo } from "./api.js";
+import { getUser, getCards, addNewPost } from "./api.js";
 
-
-editUserInfo('sda', 'sads')
 getUser();
 getCards();
-addNewPost("Тихий", "https://images.unsplash.com/photo-1643800870843-19b0fa733401?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80")
 
 getUser()
   .then((res) => {
@@ -67,4 +60,3 @@ getCards()
   .catch((err) => {
     console.log(err.status);
   });
-

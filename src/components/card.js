@@ -1,6 +1,10 @@
 import { closePopup, openPopup } from "./utils.js";
+import { addNewPost, getCards } from "./api.js";
+
 export const addImagePopup = document.querySelector("#add-image");
-export const addImageForm = addImagePopup.querySelector(".pop-up__main-container");
+export const addImageForm = addImagePopup.querySelector(
+  ".pop-up__main-container"
+);
 export const addImageButton = document.querySelector(".profile__add-button");
 export const submitNewImageButton =
   addImagePopup.querySelector(".pop-up__submit");
@@ -16,44 +20,34 @@ export const fetchCards = (arr) => {
   arr.forEach(function (src) {
     return gallery.prepend(createPost(src));
   });
-}
+};
+
+const clearCards = () => {
+  const renderedCards = Array.from(gallery.querySelectorAll(".card"));
+  renderedCards.forEach((post) => {
+    post.remove();
+  });
+};
 
 export function submitNewImage() {
   const src = {};
   src.link = link.value;
   src.name = name.value;
-  gallery.prepend(createPost(src));
+  addNewPost(src.name, src.link).catch((err) => {
+    console.log(err);
+  });
+  clearCards();
+  getCards()
+    .then((res) => {
+      fetchCards(res);
+    })
+    .catch((err) => {
+      console.log(err.status);
+    });
   name.value = "";
   link.value = "";
   closePopup(addImagePopup);
 }
-
-export const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
 
 const createPost = (src) => {
   const newPost = createCardNode();
@@ -71,9 +65,14 @@ const createCardNode = () => {
 
 const fillPost = (item, newPost) => {
   const cardImage = newPost.querySelector(".card__image");
+  const cardLike = newPost.querySelector(".card__like-counter");
   cardImage.src = item.link;
   cardImage.alt = item.name;
   newPost.querySelector(".card__text").textContent = item.name;
+  if ((item.likes.length = !null)) {
+    cardLike.textContent = item.likes.length;
+    cardLike.classList.add("card__like-counter_active");
+  }
 };
 
 const setLikeListener = (newPost) => {
@@ -97,12 +96,6 @@ const setOpenListener = (newPost) => {
     viewImage(evt);
   });
 };
-
-export function getImages(cards) {
-  cards.forEach(function (src) {
-    return gallery.prepend(createPost(src));
-  });
-}
 
 const viewImage = (evt) => {
   imageContent.src = evt.target.src;

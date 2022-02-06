@@ -35,7 +35,7 @@ export const editUserInfo = (name, about) => {
       about: about,
     }),
   }).then((res) => {
-    return getResponseData(res);
+    return console.log(getResponseData(res));
   });
 };
 
@@ -51,15 +51,13 @@ export const editUserAvatar = (pic) => {
   });
 };
 
-
-
-export const addNewPost = (title, pic) => {
+export const addNewPost = (title, post) => {
   return fetch(`${config.baseUrl}/cards`, {
-    method: "PATCH",
+    method: "POST",
     headers: config.headers,
     body: JSON.stringify({
       name: title,
-      link: pic,
+      link: post,
     }),
   }).then((res) => {
     return getResponseData(res);

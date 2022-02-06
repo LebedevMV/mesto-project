@@ -28,14 +28,14 @@ export function openProfileEditor() {
 
 export function submitProfile(evt) {
   evt.preventDefault();
-  editUserInfo(profileNameEdit.value, profileBioEdit.value);
-  getUser()
+  editUserInfo(profileNameEdit.value, profileBioEdit.value)
+  .then(getUser()
     .then((res) => {
       setUserInfo(res.name, res.about);
     })
     .catch((err) => {
       console.log(err.status);
-    });
+    })).catch(res => console.log(res))
   closePopup(editProfilePopUp);
 }
 
