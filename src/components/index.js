@@ -1,5 +1,7 @@
 import "../pages/index.css";
 import { startValidation } from "./validation.js";
+export let userId = "";
+
 
 startValidation({
   formSelector: ".pop-up",
@@ -14,7 +16,7 @@ import {
   addImageButton,
   addImageForm,
   submitNewImage,
-  fetchCards,
+  renderCards,
 } from "./card.js";
 
 addImageForm.addEventListener("submit", submitNewImage);
@@ -32,38 +34,25 @@ import {
   submitAvatar,
   changeAvaButton,
   openAvaEditor,
-  changeAvaForm
+  changeAvaForm,
 } from "./modal.js";
 
 profileEditButton.addEventListener("click", openProfileEditor);
 editProfileForm.addEventListener("submit", submitProfile);
-changeAvaButton.addEventListener("click", openAvaEditor)
-changeAvaForm.addEventListener("submit", submitAvatar)
+changeAvaButton.addEventListener("click", openAvaEditor);
+changeAvaForm.addEventListener("submit", submitAvatar);
 
 setCloseListeners();
 
-import { getUser, getCards } from "./api.js";
-export let userId = "";
+import { getAppInfo } from "./api.js";
 
+console.log(userId);
 
-getUser()
-  .then(res => {
-    userId = res._id
-    return res
+getAppInfo()
+  .then(([user, cards]) => {
+    userId = user._id;
+    setUserInfo(user.name, user.about), setUserPic(user.avatar);
+    renderCards(cards);
   })
-  .then((res) => {
-      setUserInfo(res.name, res.about),
-      setUserPic(res.avatar);
-      return res
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+ .catch((err) => console.log(err));
 
-getCards()
-  .then((res) => {
-    fetchCards(res);
-  })
-  .catch((err) => {
-    console.log(err);
-  });

@@ -30,7 +30,6 @@ const setButtonState = (inputArr, submit, config) => {
   if (!hasInvalidInput(inputArr)) {
     submit.classList.remove(config.inactiveButtonClass)
     return submit.removeAttribute('disabled')
-
   } else submit.classList.add(config.inactiveButtonClass)
   return submit.setAttribute('disabled', '')
 };

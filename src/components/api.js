@@ -91,3 +91,7 @@ export const removeLike = (id) => {
     return getResponseData(res);
   });
 };
+
+export const getAppInfo = () => {
+  return Promise.all([getUser(), getCards()]);
+};
