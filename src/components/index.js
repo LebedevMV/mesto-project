@@ -2,7 +2,6 @@ import "../pages/index.css";
 import { startValidation } from "./validation.js";
 export let userId = "";
 
-
 startValidation({
   formSelector: ".pop-up",
   inputSelector: ".pop-up__item",
@@ -54,5 +53,7 @@ getAppInfo()
     setUserInfo(user.name, user.about), setUserPic(user.avatar);
     renderCards(cards);
   })
- .catch((err) => console.log(err));
-
+  .then((res) => {
+    document.querySelector(".loader").classList.remove("loader_active");
+  })
+  .catch((err) => console.log(err));
