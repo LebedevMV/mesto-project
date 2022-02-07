@@ -23,48 +23,33 @@ const imageTitle = document.querySelector(".pop-up__image-title");
 const link = addImagePopup.querySelector(".pop-up__item_el_image-link");
 const name = addImagePopup.querySelector(".pop-up__item_el_title");
 
-export const fetchCards = (arr) => {
+export const renderCards = (arr) => {
   arr.forEach(function (src) {
-    return gallery.prepend(createPost(src));
-  });
-};
-
-const clearCards = () => {
-  const renderedCards = Array.from(gallery.querySelectorAll(".card"));
-  renderedCards.forEach((post) => {
-    post.remove();
+    return gallery.append(createPost(src));
   });
 };
 
 export function submitNewImage() {
-  addImagePopup.querySelector(".pop-up__submit").textContent = "Сохранение";
+  submitNewImageButton.textContent = "Сохранение";
   const src = {};
   src.link = link.value;
   src.name = name.value;
   addNewPost(src.name, src.link)
+    .then((res) => {
+      gallery.prepend(createPost(res));
+      name.value = "";
+      link.value = "";
+      return res;
+    })
+    .then((res) => {
+      closePopup(addImagePopup);
+    })
     .catch((err) => {
       console.log(err);
     })
-    .then((res) => {
-      getCards()
-        .then((res) => {
-          clearCards();
-          return res;
-        })
-        .then((res) => {
-          fetchCards(res);
-          return res
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally((res) => {
-          closePopup(addImagePopup);
-          addImagePopup.querySelector(".pop-up__submit").textContent = "Сохранить";
-          name.value = "";
-          link.value = "";
-        });
-    })
+    .finally((res) => {
+      submitNewImageButton.textContent = "Сохранить";
+    });
 }
 
 const createPost = (src) => {
@@ -107,30 +92,28 @@ const fillPost = (item, newPost) => {
 
 const isLiked = (item) => {
   return item.likes.some((like) => {
-    return like._id === "323ee26df72d5d21befc57c5";
+    return like._id === userId;
   });
 };
 
 const setLikeListener = (item, newPost) => {
   const postLikeButton = newPost.querySelector(".card__like");
+  const cardLikeCounter = newPost.querySelector(".card__like-counter");
   postLikeButton.addEventListener("click", function (evt) {
-    if (isLiked(item)) {
+    if (evt.target.classList.contains("card__like_active")) {
       removeLike(item._id)
-        .catch((res) => {
-          console.log("Не удалось снять лайк");
+        .then((res) => {
+          evt.target.classList.remove("card__like_active");
+          return res;
         })
-        .finally((res) => {
-          getCards()
-            .then((res) => {
-              clearCards();
-              return res;
-            })
-            .then((res) => {
-              fetchCards(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+        .then((res) => {
+          cardLikeCounter.textContent = res.likes.length;
+          if (res.likes.length > 0) {
+            cardLikeCounter.classList.add("card__like-counter_active");
+          } else cardLikeCounter.classList.remove("card__like-counter_active");
+        })
+        .catch((res) => {
+          console.log(`${res}:Не удалось снять лайк`);
         });
     } else
       likePost(item._id)
@@ -138,21 +121,14 @@ const setLikeListener = (item, newPost) => {
           evt.target.classList.add("card__like_active");
           return res;
         })
-        .catch((res) => {
-          console.log("Не удалось поставить лайк");
+        .then((res) => {
+          cardLikeCounter.textContent = res.likes.length;
+          if (res.likes.length > 0) {
+            cardLikeCounter.classList.add("card__like-counter_active");
+          } else cardLikeCounter.classList.remove("card__like-counter_active");
         })
-        .finally((res) => {
-          getCards()
-            .then((res) => {
-              clearCards();
-              return res;
-            })
-            .then((res) => {
-              fetchCards(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+        .catch((res) => {
+          console.log(`${res}:Не удалось поставить лайк`);
         });
   });
 };
@@ -162,21 +138,11 @@ const setDeleteListener = (item, newPost) => {
   if (postDeleteButton != null) {
     postDeleteButton.addEventListener("click", function (evt) {
       removePost(item._id)
+        .then((res) => {
+          newPost.remove();
+        })
         .catch((err) => {
           console.log(err);
-        })
-        .finally((res) => {
-          getCards()
-            .then((res) => {
-              clearCards();
-              return res;
-            })
-            .then((res) => {
-              fetchCards(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
         });
     });
   }

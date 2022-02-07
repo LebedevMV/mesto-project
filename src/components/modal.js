@@ -1,6 +1,7 @@
 import { addImagePopup } from "./card.js";
 import { openPopup, closePopup } from "./utils.js";
-import { editUserInfo, getUser, editUserAvatar } from "./api.js";
+import { editUserInfo, editUserAvatar } from "./api.js";
+import { startValidation } from "./validation.js";
 
 const content = document.querySelector(".page");
 
@@ -21,52 +22,67 @@ const popups = document.querySelectorAll(".pop-up");
 const changeAva = content.querySelector("#change-ava");
 export const changeAvaButton = content.querySelector(".profile__overlay");
 export const changeAvaForm = changeAva.querySelector(".pop-up__main-container");
+const newAvaLink = changeAva.querySelector("#ava-link");
+const submitNewAva = changeAva.querySelector(".pop-up__submit");
 
 export const submitAvatar = () => {
-  changeAva.querySelector(".pop-up__submit").textContent = "Сохранение";
-  const newAvaLink = changeAva.querySelector("#ava-link");
+  submitNewAva.textContent = "Сохранение";
   editUserAvatar(newAvaLink.value)
     .then((res) => {
       setUserPic(res.avatar);
+      closePopup(changeAva);
+      newAvaLink.value = "";
       return res;
     })
     .catch((err) => {
       console.log(err);
     })
     .finally((res) => {
-      closePopup(changeAva);
-      newAvaLink.value = "";
-      changeAva.querySelector(".pop-up__submit").textContent = "Сохранить";
+      submitNewAva.textContent = "Сохранить";
     });
 };
 
 export const openAvaEditor = () => {
   openPopup(changeAva);
+  startValidation({
+    formSelector: ".pop-up",
+    inputSelector: ".pop-up__item",
+    submitButtonSelector: ".pop-up__submit",
+    inactiveButtonClass: "pop-up__submit_disabled",
+    inputErrorClass: "pop-up__item_type_error",
+    errorClass: "pop-up__item-error_active",
+  });
 };
 // Функции для попапа редактирования профиля
 export function openProfileEditor() {
   profileNameEdit.value = profileName.textContent;
   profileBioEdit.value = profileBio.textContent;
   openPopup(editProfilePopUp);
+  startValidation({
+    formSelector: ".pop-up",
+    inputSelector: ".pop-up__item",
+    submitButtonSelector: ".pop-up__submit",
+    inactiveButtonClass: "pop-up__submit_disabled",
+    inputErrorClass: "pop-up__item_type_error",
+    errorClass: "pop-up__item-error_active",
+  });
 }
 
 export function submitProfile(evt) {
-  editProfilePopUp.querySelector(".pop-up__submit").textContent = "Сохранение";
+  submitProfileButton.textContent = "Сохранение";
   evt.preventDefault();
-  editUserInfo(profileNameEdit.value, profileBioEdit.value).then(
-    getUser()
-      .then((res) => {
-        setUserInfo(res.name, res.about);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally((res) => {
-        editProfilePopUp.querySelector(".pop-up__submit").textContent =
-          "Сохранить";
-        closePopup(editProfilePopUp);
-      })
-  );
+  editUserInfo(profileNameEdit.value, profileBioEdit.value)
+    .then((res) => {
+      setUserInfo(res.name, res.about);
+      closePopup(editProfilePopUp);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally((res) => {
+      submitProfileButton.textContent =
+        "Сохранить";
+    });
 }
 
 export const setUserInfo = (name, bio) => {
@@ -82,10 +98,17 @@ export const setUserPic = (pic) => {
 
 export function openAddImagePopup() {
   openPopup(addImagePopup);
+  startValidation({
+    formSelector: ".pop-up",
+    inputSelector: ".pop-up__item",
+    submitButtonSelector: ".pop-up__submit",
+    inactiveButtonClass: "pop-up__submit_disabled",
+    inputErrorClass: "pop-up__item_type_error",
+    errorClass: "pop-up__item-error_active",
+  });
 }
 
 // Закрытие всех поп-апов по esc / клику по крестику или заднему фону
-const popUpsArray = Array.from(document.querySelectorAll(".pop-up"));
 
 function isOpened(item) {
   if (!item.classList.contains("pop-up_is-closed")) {
@@ -101,7 +124,7 @@ export function closeByEscape(evt) {
 }
 
 export const setCloseListeners = () => {
-  popUpsArray.forEach((popup) => {
+  Array.from(popups).forEach((popup) => {
     popup.addEventListener("mousedown", (evt) => {
       if (
         !evt.target.classList.contains("pop-up_is-closed") &&
