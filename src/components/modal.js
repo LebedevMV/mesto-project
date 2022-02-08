@@ -1,11 +1,8 @@
 import { addImagePopup } from "./card.js";
 import { openPopup, closePopup } from "./utils.js";
 import { editUserInfo, editUserAvatar } from "./api.js";
-import { startValidation } from "./validation.js";
 
 const content = document.querySelector(".page");
-
-// Выбираем элементы для попапа редактирования профиля
 export const editProfilePopUp = content.querySelector("#edit-profile");
 export const editProfileForm = editProfilePopUp.querySelector(
   ".pop-up__main-container"
@@ -26,12 +23,14 @@ const newAvaLink = changeAva.querySelector("#ava-link");
 const submitNewAva = changeAva.querySelector(".pop-up__submit");
 
 export const submitAvatar = () => {
-  submitNewAva.textContent = "Сохранение";
+  submitNewAva.textContent = "Сохранение...";
   editUserAvatar(newAvaLink.value)
     .then((res) => {
       setUserPic(res.avatar);
       closePopup(changeAva);
       newAvaLink.value = "";
+      submitNewAva.setAttribute('disabled', true)
+      submitNewAva.classList.add("pop-up__submit_disabled")
       return res;
     })
     .catch((err) => {
@@ -44,44 +43,29 @@ export const submitAvatar = () => {
 
 export const openAvaEditor = () => {
   openPopup(changeAva);
-  startValidation({
-    formSelector: ".pop-up",
-    inputSelector: ".pop-up__item",
-    submitButtonSelector: ".pop-up__submit",
-    inactiveButtonClass: "pop-up__submit_disabled",
-    inputErrorClass: "pop-up__item_type_error",
-    errorClass: "pop-up__item-error_active",
-  });
 };
-// Функции для попапа редактирования профиля
+
 export function openProfileEditor() {
   profileNameEdit.value = profileName.textContent;
   profileBioEdit.value = profileBio.textContent;
   openPopup(editProfilePopUp);
-  startValidation({
-    formSelector: ".pop-up",
-    inputSelector: ".pop-up__item",
-    submitButtonSelector: ".pop-up__submit",
-    inactiveButtonClass: "pop-up__submit_disabled",
-    inputErrorClass: "pop-up__item_type_error",
-    errorClass: "pop-up__item-error_active",
-  });
 }
 
 export function submitProfile(evt) {
-  submitProfileButton.textContent = "Сохранение";
+  submitProfileButton.textContent = "Сохранение...";
   evt.preventDefault();
   editUserInfo(profileNameEdit.value, profileBioEdit.value)
     .then((res) => {
       setUserInfo(res.name, res.about);
       closePopup(editProfilePopUp);
+      submitProfileButton.setAttribute('disabled', true)
+      submitProfileButton.classList.add("pop-up__submit_disabled")
     })
     .catch((err) => {
       console.log(err);
     })
     .finally((res) => {
-      submitProfileButton.textContent =
-        "Сохранить";
+      submitProfileButton.textContent = "Сохранить";
     });
 }
 
@@ -98,14 +82,6 @@ export const setUserPic = (pic) => {
 
 export function openAddImagePopup() {
   openPopup(addImagePopup);
-  startValidation({
-    formSelector: ".pop-up",
-    inputSelector: ".pop-up__item",
-    submitButtonSelector: ".pop-up__submit",
-    inactiveButtonClass: "pop-up__submit_disabled",
-    inputErrorClass: "pop-up__item_type_error",
-    errorClass: "pop-up__item-error_active",
-  });
 }
 
 // Закрытие всех поп-апов по esc / клику по крестику или заднему фону
