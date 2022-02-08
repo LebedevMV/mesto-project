@@ -1,7 +1,6 @@
 import { closePopup, openPopup } from "./utils.js";
 import {
   addNewPost,
-  getCards,
   removePost,
   likePost,
   removeLike,
@@ -30,7 +29,7 @@ export const renderCards = (arr) => {
 };
 
 export function submitNewImage() {
-  submitNewImageButton.textContent = "Сохранение";
+  submitNewImageButton.textContent = "Сохранение...";
   const src = {};
   src.link = link.value;
   src.name = name.value;
@@ -39,6 +38,8 @@ export function submitNewImage() {
       gallery.prepend(createPost(res));
       name.value = "";
       link.value = "";
+      submitNewImageButton.setAttribute('disabled', true)
+      submitNewImageButton.classList.add("pop-up__submit_disabled")
       return res;
     })
     .then((res) => {

@@ -53,7 +53,7 @@ getAppInfo()
     setUserInfo(user.name, user.about), setUserPic(user.avatar);
     renderCards(cards);
   })
-  .then((res) => {
+  .catch((err) => console.log(err))
+  .finally((res) => {
     document.querySelector(".loader").classList.remove("loader_active");
-  })
-  .catch((err) => console.log(err));
+  });
